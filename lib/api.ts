@@ -15,6 +15,7 @@ interface FetchNotesParams {
   search?: string;
   page?: number;
   perPage?: number;
+  tag?: string;
 }
 
 export interface CreateNoteParams {
@@ -23,18 +24,19 @@ export interface CreateNoteParams {
   tag: string;
 }
 
-export async function fetchNotes({ search, page = 1 }: FetchNotesParams) {
+export async function fetchNotes({ search, page = 1, tag }: FetchNotesParams) {
   const params: FetchNotesParams = {
     page: page,
     perPage: 12,
   };
   if (search) params.search = search;
+  if (tag) params.tag = tag;
 
   const response = await axios.get<FetchNotesHTTPResponse>("", { params });
   return response.data;
 }
 
-export async function fetchNoteById(id: string) {
+export async function fetchNoteById(id: number) {
   const res = await axios.get<Note>(`${id}`);
   return res.data;
 }
@@ -52,7 +54,7 @@ export async function createNote({
   return response.data;
 }
 
-export async function deleteNote(noteId: number) {
-  const response = await axios.delete<Note>(`/${noteId}`);
+export async function deleteNote(id: number) {
+  const response = await axios.delete<Note>(`/${id}`);
   return response.data;
 }

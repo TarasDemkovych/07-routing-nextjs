@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { fetchNoteById } from "@/lib/api/client";
+import { fetchNoteById } from "@/lib/api";
 import css from "./NoteDetails.module.css";
 
 export default function NoteDetailsClient() {
@@ -14,12 +14,11 @@ export default function NoteDetailsClient() {
     error,
   } = useQuery({
     queryKey: ["note", id],
-    queryFn: () => fetchNoteById(id),
+    queryFn: () => fetchNoteById(+id),
     refetchOnMount: false,
   });
 
   if (isLoading) return <p>Loading, please wait...</p>;
-
   if (error || !note) return <p>Something went wrong.</p>;
 
   return (
@@ -31,7 +30,9 @@ export default function NoteDetailsClient() {
         </div>
         <p className={css.content}>{note.content}</p>
         <p className={css.date}>
-          {new Date(note.createdAt).toLocaleString("uk-UA")}
+          {note.updatedAt === note.createdAt
+            ? `Created at: ${new Date(note.createdAt).toLocaleString("uk-UA")}`
+            : `Updated at: ${new Date(note.updatedAt).toLocaleString("uk-UA")}`}
         </p>
       </div>
     </div>
