@@ -7,7 +7,8 @@ import { fetchNoteById } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
 import css from "./NotePreview.module.css";
 
-type NoteDetailsClientProps = { id: string };
+
+type NoteDetailsClientProps =  { id: number};
 
 export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
   const router = useRouter();
