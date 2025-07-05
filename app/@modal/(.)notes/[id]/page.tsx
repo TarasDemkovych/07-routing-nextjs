@@ -5,7 +5,7 @@ type Props = {
 };
 
 const NoteDetails = async ({ params }: Props) => {
-  const { id } = await params;
+  const { id } =  params;
 
   return <NotePreviewClient id={id} />;
 };
