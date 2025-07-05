@@ -1,7 +1,7 @@
 import NotePreviewClient from "./NotePreview.client";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
 const NoteDetails = async ({ params }: Props) => {
