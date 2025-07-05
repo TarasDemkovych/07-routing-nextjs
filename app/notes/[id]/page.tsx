@@ -7,11 +7,12 @@ import { fetchNoteById } from "@/lib/api";
 import NoteDetailsClient from "./NoteDetails.client";
 
 type Props = {
-  params: { id: string }; 
+  params: Promise<{ id: string }>;
 };
 
 const NoteDetails = async ({ params }: Props) => {
-  const noteId = Number(params.id); 
+  const { id } = await params;
+  const noteId = Number(id);
 
   if (isNaN(noteId)) {
     throw new Error("Invalid note ID");
