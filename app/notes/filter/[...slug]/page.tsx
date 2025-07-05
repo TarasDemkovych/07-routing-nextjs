@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default async function Notes({ params }: Props) {
-  const { slug } = await params;
+  const { slug } =  params;
   const selectedTag = slug[0] === "All" ? undefined : slug[0];
   const data = await fetchNotes({ page: 1, search: "", tag: selectedTag });
 
